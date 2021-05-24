@@ -5,9 +5,9 @@ function inner() {
   var str = document.getElementById("test");
   str.innerHTML = "이문장으로 바뀌었습니다.";
 }
-function write() {
-    document.write("4 * 5");
+function docwirte() {
+    document.write(4 * 5);
 }
-function cx() {
+function consolelog() {
     console.log(4 * 5);
 }
