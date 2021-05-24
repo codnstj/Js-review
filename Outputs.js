@@ -5,7 +5,7 @@ function inner() {
   var str = document.getElementById("test");
   str.innerHTML = "이문장으로 바뀌었습니다.";
 }
-function docwirte() {
+function docwrite() {
     document.write(4 * 5);
 }
 function consolelog() {
