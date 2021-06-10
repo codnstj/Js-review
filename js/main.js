@@ -1,15 +1,15 @@
-var http = require('http');
-var fs = require('fs');
-var url = require('url');
+var http = require('http'); //http 모듈
+var fs = require('fs');     // file system 모듈
+var url = require('url');   //url 모듈
  
-var app = http.createServer(function(request,response){
+var app = http.createServer(function(request,response){ //http 웹서버 실행 
     var _url = request.url;
     var queryData = url.parse(_url, true).query;
     var pathname = url.parse(_url, true).pathname;
     if(pathname === '/'){
       if(queryData.id === undefined){
  
-        fs.readdir('./data', function(error, filelist){
+        fs.readdir('./data', function(error, filelist){ //파일 목록 읽기
           var title = 'Welcome';
           var description = 'Hello, Node.js';
           var list = '<ul>';
