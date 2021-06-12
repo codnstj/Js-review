@@ -1,8 +1,11 @@
-const express = require('express')  //express 모듈 가져오기
+const express = require('express') //express 모듈 가져오기
 const app = express() //express 함수를 이용해서 새로운 앱 만들기
 const port = 3000 //포트는 3000 번을 백엔드 서버로써 사용
-const {User} = require("./models/User")
-const bodyParser = require('body-parser')
+
+const config = require('./config/key'); //비밀정보를 가져올 파일 가져오기
+
+const {User} = require("./models/User"); //user 스키마 가져오기
+const bodyParser = require('body-parser'); //body-parser 모듈 가져오기
 
 
 //application/x-www-form-urlencoded
@@ -12,14 +15,14 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json()) 
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://Seochaewoon:1234@cluster.ynchd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
+mongoose.connect(config.mongoURI,{
   useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true,useFindAndModify: false
 }).then(()=> console.log('MongoDB Connected'))
   .catch(err => console.log(err))
 
 
 
-app.get('/',(req,res) => res.send('Hello World~'))
+app.get('/',(req,res) => res.send('Hello World !!'))
 
 app.post('/register',(req,res) => {
   //회원 가입 할때 필요한 정보들을 client 에서 가져오면
