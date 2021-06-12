@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({  //스키마 생성
   },
   password:{
     type:String,
-    mxinength:5
+    minlength:5
   },
   lastname:{
     type:String,
