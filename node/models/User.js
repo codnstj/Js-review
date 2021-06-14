@@ -1,4 +1,6 @@
 const mongoose = require('mongoose') //몽구스 모듈 가져오기
+const bcrypt = require('bcrypt')
+const saltRounds = 10 //salt 가 몇글자인지 
 
 const userSchema = mongoose.Schema({  //스키마 생성
   name : {
@@ -31,6 +33,25 @@ const userSchema = mongoose.Schema({  //스키마 생성
   }
 })
 
+userSchema.pre('save',function(next){
+  var user = this;
+  if(user.isModified('password')){
+    //비밀번호를 암호화 시킨다.
+    bcrypt.genSalt(saltRounds,function(err,salt){
+      if(err) return next(err)
+  
+      bcrypt.hash( user.password , salt, function(err,hash){
+        if(err) return next(err) 
+        user.password = hash
+        next()
+      })
+    })
+  }
+})
+
+  
+
 const User = mongoose.model('User',userSchema) //스키마를 모델로 감싸준다.
 
 module.exports = { User } //다른곳에서 접근 가능하도록 exports 해준다.
+
