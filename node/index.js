@@ -28,7 +28,7 @@ app.post('/register',(req,res) => {
   //회원 가입 할때 필요한 정보들을 client 에서 가져오면
   //그것들을 데이터 베이스에 넣어준다.
     
-    const user = new User(req.body)
+    const user = new User(req.body) //모든 정보를 모델에 넣어줌
 
     user.save((err,userInfo)=>{
       if(err) return res.json({ success:false, err})

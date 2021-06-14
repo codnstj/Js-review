@@ -128,6 +128,7 @@ dist/
 tmp/
 temp/
 
+# Protect Private Data
 dev.js
 
 # End of https://www.toptal.com/developers/gitignore/api/node
