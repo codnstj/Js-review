@@ -3,14 +3,13 @@ const app = express() //express 함수를 이용해서 새로운 앱 만들기
 const port = 3000 //포트는 3000 번을 백엔드 서버로써 사용
 
 const config = require('./config/key'); //비밀정보를 가져올 파일 가져오기
-
 const {User} = require("./models/User"); //user 스키마 가져오기
 const bodyParser = require('body-parser'); //body-parser 모듈 가져오기
-
+const cookieParser = require('cookie-parser');
 
 //application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended:true}))
-
+app.use(bodyParser.urlencoded({extended:true}));
+app.user(cookieParser());
 //application/json
 app.use(bodyParser.json()) 
 
@@ -56,9 +55,12 @@ app.post('/login',(req,res) => {
         if(!isMatch)
           return res.json({loginSuccess : false,message : "비밀번호가 틀렸습니다."})
 
-            //비밀번호까지  맞다면 토큰을 생성하기.
+            //비밀번호까지  맞다면 토큰을 생성하기. (JSONWEBTOKEN 설치)
     user.generateToken((err,user)=>{
-
+        if(err) return res.status(400).send(err);
+        
+        //토큰을 저장한다. 어디에 ? 쿠키,로컬스토리지,
+        res.cookie("x_auth",user.token)
     })  
   })
 })

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose') //몽구스 모듈 가져오기
 const bcrypt = require('bcrypt')
 const saltRounds = 10 //salt 가 몇글자인지 
+const jwt = require('jsonwebtoken')//jsonwebtoken 라이브러리 생성
+
 
 const userSchema = mongoose.Schema({  //스키마 생성
   name : {
@@ -58,6 +60,21 @@ userSchema.pre('save',function(next){
         if(err) return cb(err),
         cb(null , isMatch)
       })
+  }
+
+  userSchema.methods.generateToken = function(cb){
+    var user = this;
+    
+    //jsonwebtoken 을 이용해서 웹 토큰 생성하기
+    var token = jwt.sign(user._id,'secretToken')
+
+
+    user.token = token
+    user.save(function(err,user){
+      if(err) return cb(err)
+      cb(null,user)
+    })
+    
   }
 
 const User = mongoose.model('User',userSchema) //스키마를 모델로 감싸준다.
