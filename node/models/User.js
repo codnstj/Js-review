@@ -53,12 +53,12 @@ userSchema.pre('save',function(next){
   }
 })
 
-  userSchema.methods.compaarePassword = function(plaiPassword,cb ){
+  userSchema.methods.comparePassword = function(plainPassword,cb ){
 
     //plainPassword 1234567  == 암호화된 비밀번호 : ~~
       bcrypt.compare(plainPassword,this.password, function(err,isMatch) {
         if(err) return cb(err),
-        cb(null , isMatch)
+        cb(null,isMatch)
       })
   }
 
@@ -66,7 +66,7 @@ userSchema.pre('save',function(next){
     var user = this;
     
     //jsonwebtoken 을 이용해서 웹 토큰 생성하기
-    var token = jwt.sign(user._id,'secretToken')
+    var token = jwt.sign(user._id.toHexString(),'secretToken')
 
 
     user.token = token
