@@ -54,9 +54,7 @@ app.post('/login',(req,res) => {
 
     user.comparePassword(req.body.password ,(err,isMatch) => {
       if(!isMatch){
-        console.log(1);
         return res.json({loginSuccess : false,message : "비밀번호가 틀렸습니다."})
-        
       }
             //비밀번호까지  맞다면 토큰을 생성하기. (JSONWEBTOKEN 설치)
       user.generateToken((err,user)=>{
