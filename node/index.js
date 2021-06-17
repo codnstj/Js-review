@@ -30,7 +30,7 @@ app.post('/register',(req,res) => {
     const user = new User(req.body) //모든 정보를 모델에 넣어줌
 
     user.save((err,userInfo)=>{
-      if(err) return res.json({ success:false, err})
+      if(err) return res.json({ success:false, err}) //오류처리
       return res.status(200).json({
         success:true
       })
@@ -44,7 +44,7 @@ app.post('/login',(req,res) => {
   //요청된 이메일 을 데이터베이스에서 있는지 찾는다.
   User.findOne({email:req.body.email},(err,user)=> {
     console.log(JSON.stringify(user))
-    if(!user){
+    if(!user){ //오류처리
       return res.json({
         loginSuccess:false,
         message:"제공된 이메일에 해당하는 유저가 없습니다."
@@ -53,12 +53,12 @@ app.post('/login',(req,res) => {
     //요청된 이메일이 데이터 베이스에 있다면 비밀번호가 맞는 비밀번혼지 확인
 
     user.comparePassword(req.body.password ,(err,isMatch) => {
-      if(!isMatch){
+      if(!isMatch){ //오류처리
         return res.json({loginSuccess : false,message : "비밀번호가 틀렸습니다."})
       }
             //비밀번호까지  맞다면 토큰을 생성하기. (JSONWEBTOKEN 설치)
       user.generateToken((err,user)=>{
-        if(err) return res.status(400).send(err);
+        if(err) return res.status(400).send(err); //오류처리
         else{
           res.cookie("x_auth",user.token) //쿠키에 저장
             .status(200)
