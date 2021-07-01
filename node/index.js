@@ -5,6 +5,7 @@ const config = require('./config/key'); //비밀정보를 가져올 파일 가�
 const {User} = require("./models/User"); //user 스키마 가져오기
 const bodyParser = require('body-parser'); //body-parser 모듈 가져오기
 const cookieParser = require('cookie-parser');
+const{auth} = require('./middleware/auth');
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
@@ -14,6 +15,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');//몽구스 모듈 불러오기
 const { json } = require('body-parser');//json 파일로 body-parser 불러오기
+const { Router } = require('express');
 mongoose.connect(config.mongoURI,{ // 몽구스 연결 
   useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true,useFindAndModify: false //연결옵션
 }).then(()=> console.log('MongoDB Connected')) // 연결된다면 콘솔로그
@@ -23,7 +25,7 @@ mongoose.connect(config.mongoURI,{ // 몽구스 연결
 
 app.get('/',(req,res) => res.send('Hello World !!')) //웹서버가 /을 받았을때 HELLO WORLD 를 보낸다.
 
-app.post('/register',(req,res) => {
+app.post('/api/user/register',(req,res) => {
   //회원 가입 할때 필요한 정보들을 client 에서 가져오면
   //그것들을 데이터 베이스에 넣어준다.
     
@@ -70,5 +72,17 @@ app.post('/login',(req,res) => {
     })
   })
 })
+
+
+app.post('api/users/auth',auth,(req,res)=>{
+    //여기까지 미들웨어를 통과해왔다는 얘기는 Authentication 이 true 라는 말
+    res.status(200).json({
+      _id:req.user._id,
+      isAdmin:req.userrole === 0? false : true,
+    })
+
+})
+
+
 
 app.listen(port,() => console.log(`Example app listening on port ${port}`))
