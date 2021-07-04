@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); //body-parser 모듈 가져오기
 const cookieParser = require('cookie-parser');
 const{auth} = require('./middleware/auth');
 
-//application/x-www-form-urlencoded
+  //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
 //application/json
@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');//몽구스 모듈 불러오기
 const { json } = require('body-parser');//json 파일로 body-parser 불러오기
-const { Router } = require('express');
+const { Router } = require('express'); //Router 를 익스프레스 에서 가져오기
 mongoose.connect(config.mongoURI,{ // 몽구스 연결 
   useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true,useFindAndModify: false //연결옵션
 }).then(()=> console.log('MongoDB Connected')) // 연결된다면 콘솔로그
