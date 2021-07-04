@@ -19,11 +19,11 @@ const { Router } = require('express');
 mongoose.connect(config.mongoURI,{ // 몽구스 연결 
   useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true,useFindAndModify: false //연결옵션
 }).then(()=> console.log('MongoDB Connected')) // 연결된다면 콘솔로그
-  .catch(err => console.log(err)) // 연결되지 ERR 가 반환 된다면 err 콘솔로그
+  .catch(err => console.log(err)) // 연결되지않고 ERR 이 반환 된다면 err 콘솔로그
 
 
 
-app.get('/',(req,res) => res.send('Hello World !!')) //웹서버가 /을 받았을때 HELLO WORLD 를 보낸다.
+app.get('/',(req,res) => res.send('Hello World !!')) //웹서버가 "/"을 받았을때 HELLO WORLD 를 보낸다.
 
 app.post('/api/user/register',(req,res) => {
   //회원 가입 할때 필요한 정보들을 client 에서 가져오면

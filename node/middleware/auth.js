@@ -2,7 +2,6 @@ const cookieParser = require("cookie-parser")
 const {User}=require('../models/User')
 let autn = (req,res,next) =>{
   //인증처리 를 하는곳
-
   //클라이언트 쿠키에서 토큰을 가져온다.
   let token = req.cookies.x_auth;
   //토큰을 목호화 한후 유저를 찾는다.
