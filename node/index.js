@@ -65,7 +65,7 @@ app.post('/login',(req,res) => {
           res.cookie("x_auth",user.token) //쿠키에 저장
             .status(200)
             .json({loginSuccess:true,userId:user._id})
-        }
+        } 
           //토큰을 저장한다. 어디에 ? 쿠키,로컬스토리지,
           
       })  
@@ -79,13 +79,19 @@ app.post('api/users/auth',auth,(req,res)=>{
     res.status(200).json({
       _id:req.user._id,
       isAdmin:req.userrole === 0? false : true,
+      isAuth : true,
       email : req.user.email,
       lastname : req.user.lastname,
       role : req.user.role,
       image:req.user.image
     })
 })
-
+app.get('/api/users/logout',auth,(res,req)=>{
+  User.findOneAndUpdate({_id:req.user._id},
+    {token:""},(err,user)=>{
+    if(err) return res.json({success : false,err})
+  })
+})
 
 
 app.listen(port,() => console.log(`Example app listening on port ${port}`))
