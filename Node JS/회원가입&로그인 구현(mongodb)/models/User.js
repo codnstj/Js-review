@@ -55,16 +55,16 @@ userSchema.pre('save', function (next) {
 })
 
 
-userSchema.methods.comparePassword = function (plainPassword, cb) {
+userSchema.methods.comparePassword = (plainPassword, cb)=> {
 
     //plainPassword 1234567    암호회된 비밀번호 $2b$10$l492vQ0M4s9YUBfwYkkaZOgWHExahjWC
-    bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+    bcrypt.compare(plainPassword, this.password,  (err, isMatch)=> {
         if (err) return cb(err);
         cb(null, isMatch);
     })
 }
 
-userSchema.methods.generateToken = function (cb) {
+userSchema.methods.generateToken = (cb)=> {
     var user = this;
     // console.log('user._id', user._id)
 
