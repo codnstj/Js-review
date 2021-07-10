@@ -18,7 +18,6 @@ while(funds >1 && funds <100){
   round++;
   console.log(`round ${round}:`);
   console.log(`\tstarting funds : ${funds}p`);
-
   //돈을 겁니다.
   let bets = {crown : 0,anchor:0,heart:0,spade:0,club:0,diamond:0};
   let totalBet = rand(1,funds);
