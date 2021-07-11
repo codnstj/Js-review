@@ -56,7 +56,7 @@ Student.prototype.study = function study() {
   return `${this.name} is Studying`
 }
 
-Object.setPrototypeOf(Student.prototype, Person.prototype)
+Object.setPrototypeOf(Student.prototype, Person.prototype) //상속 해준다.
 
 const me = new Student('Chaewoon')
 console.log(me instanceof Student)
