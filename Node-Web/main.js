@@ -64,3 +64,40 @@ console.log(me instanceof Person)
 
 const anotherPerson = new Person('FOO')
 console.log(anotherPerson instanceof Student)
+
+const a = [1, 2, 3, 4, 5]
+
+const [head, ...rest] = a
+console.log(head, rest)
+
+const paerSonalData = {
+  email: '1',
+  password: '****',
+}
+
+const publicData = {
+  nickname: '3',
+}
+
+const overrides = {
+  email: '12341234',
+}
+
+const user = {
+  ...paerSonalData,
+  ...publicData,
+  ...overrides,
+}
+
+console.log(user)
+
+  /** @tyape {string[]} */
+function solveA(){
+  const cities = []
+
+  for(const person of people){
+    if (person.age<30){
+      if( )
+    }
+  }
+}

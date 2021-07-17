@@ -3,6 +3,7 @@
         "strict": true
     },
     "include": [
-        "src/**/*"
+        "./src/**/*"
     ]
+
 }
