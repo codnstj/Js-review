@@ -1,5 +1,6 @@
-/* eslint-disable */
 // js 에서도 type check 를 사용할수 있다.
+
+const { type } = require("os")
 
 // formatting & Linting & TypeChecking
 
@@ -95,13 +96,111 @@ TypeChecking ex)TypeScript(타입을 정의해줌)
  * 다음 문제를 풀어봅시다.
  *
  * A. 30대 미만이 한명이라도ㅡ사는 모든 도시
- * B. 각 도시별로 개와 고양이를 키우는 사람들의 수
  */
 
-// function solveA(){
-//   /** @type {string[]} */
-//   class cities = []
-//   for (const person of people){
-//     if(person.)
-//   }
-// }
+/**
+* @typedef Person 
+* @property {number} age 
+* @property {string} city 
+* @property {string | string[]} [pet]
+*/
+
+/**
+ * @type {Person[]}
+ */
+ const people =[
+    {
+      age : 20,
+      city : '서울',
+      pet : ['cat','dog']
+    },
+    {
+      age : 40,
+      city : '부산'
+    },
+    {
+      age : 31 ,
+      city : '대구',
+      pet : ['cat','dog']
+    },
+    {
+      age : 36,
+      city : '서울'
+    },
+    {
+      age : 27,
+      city : '부산',
+      pet : [
+        'cat'
+      ]
+    },
+    {
+      age : 24,
+      city : '서울',
+      pet : 'dog'
+    }
+  ]
+    /** @tyape {string[]} */
+  function solveA(){
+    const cities = []
+  
+    // Solve A 의 중심적인 부분
+    for(const person of people){
+      if (person.age<30){
+        if(!cities.find((city) => person.city === city)){
+          cities.push(person.city)
+        }
+      }
+    }
+    return cities
+  }
+  function solveAMordern() {
+    const allcities = people.filter(({age})=>age <30).map(({city})=>city)
+    const set = new Set(allcities)
+    return Array.from(set)
+  }
+  
+  console.log('solveA',solveA())
+  console.log('solveAMordern',solveAMordern())
+
+
+  /** B. 각 도시별로 개와 고양이를 키우는 사람들의 수*/
+
+  /**
+   * {
+   *    "서울"  : {
+   *        "dog" : 2,
+   *        "cat" : 1
+   *    },
+   *    "대구" : {
+   *        "dog" : 1,
+   *        "cat" : 1,
+   *    },
+   *    "부산" : {
+   *        "cat" : 1,
+   *    }
+   * }
+   */
+
+  /**
+   * @typedef {Object.<string,Object.<string,number>} PetsOfCities
+   */
+
+  function SolveB(){
+    /**
+     * @type {PetsOfCities}
+     */
+    const result{}
+    for(const person of people){
+        const {city,pet: petOrPets} = person
+        if(petOrPets){
+            if(typeof petOrPets === 'string'){
+                const pet = petOrPets
+                city[pet] = city[pet] + 1
+            }
+            else if(typeof petOrPets === 'undefine')
+        }
+    }
+    return result    
+}
+console.log('solveB',SolveB())
