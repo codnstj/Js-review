@@ -191,15 +191,24 @@ TypeChecking ex)TypeScript(타입을 정의해줌)
      * @type {PetsOfCities}
      */
     const result{}
+
     for(const person of people){
         const {city,pet: petOrPets} = person
+
         if(petOrPets){
+          const PetsOfCity = result[city] || {}
             if(typeof petOrPets === 'string'){
+
                 const pet = petOrPets
-                city[pet] = city[pet] + 1
+
+                result[city][pet] = result[city][pet] + 1
             }
-            else if(typeof petOrPets === 'undefine')
-        }
+            else if(typeof petOrPets === 'undefine'){
+
+            }
+
+            result[city] = PetsOfCity
+        } 
     }
     return result    
 }
