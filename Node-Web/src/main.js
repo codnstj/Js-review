@@ -1,6 +1,6 @@
 // js 에서도 type check 를 사용할수 있다.
 
-const { type } = require("os")
+const { type } = require("os");
 
 // formatting & Linting & TypeChecking
 
@@ -99,117 +99,120 @@ TypeChecking ex)TypeScript(타입을 정의해줌)
  */
 
 /**
-* @typedef Person 
-* @property {number} age 
-* @property {string} city 
-* @property {string | string[]} [pet]
-*/
+ * @typedef Person
+ * @property {number} age
+ * @property {string} city
+ * @property {string | string[]} [pet]
+ */
 
 /**
  * @type {Person[]}
  */
- const people =[
-    {
-      age : 20,
-      city : '서울',
-      pet : ['cat','dog']
-    },
-    {
-      age : 40,
-      city : '부산'
-    },
-    {
-      age : 31 ,
-      city : '대구',
-      pet : ['cat','dog']
-    },
-    {
-      age : 36,
-      city : '서울'
-    },
-    {
-      age : 27,
-      city : '부산',
-      pet : [
-        'cat'
-      ]
-    },
-    {
-      age : 24,
-      city : '서울',
-      pet : 'dog'
-    }
-  ]
-    /** @tyape {string[]} */
-  function solveA(){
-    const cities = []
-  
-    // Solve A 의 중심적인 부분
-    for(const person of people){
-      if (person.age<30){
-        if(!cities.find((city) => person.city === city)){
-          cities.push(person.city)
-        }
+const people = [
+  {
+    age: 20,
+    city: "서울",
+    pet: ["cat", "dog"]
+  },
+  {
+    age: 40,
+    city: "부산"
+  },
+  {
+    age: 31,
+    city: "대구",
+    pet: ["cat", "dog"]
+  },
+  {
+    age: 36,
+    city: "서울"
+  },
+  {
+    age: 27,
+    city: "부산",
+    pet: ["cat"]
+  },
+  {
+    age: 24,
+    city: "서울",
+    pet: "dog"
+  }
+];
+/** @tyape {string[]} */
+function solveA() {
+  const cities = [];
+
+  // Solve A 의 중심적인 부분
+  for (const person of people) {
+    if (person.age < 30) {
+      if (!cities.find(city => person.city === city)) {
+        cities.push(person.city);
       }
     }
-    return cities
   }
-  function solveAMordern() {
-    const allcities = people.filter(({age})=>age <30).map(({city})=>city)
-    const set = new Set(allcities)
-    return Array.from(set)
-  }
-  
-  console.log('solveA',solveA())
-  console.log('solveAMordern',solveAMordern())
-
-
-  /** B. 각 도시별로 개와 고양이를 키우는 사람들의 수*/
-
-  /**
-   * {
-   *    "서울"  : {
-   *        "dog" : 2,
-   *        "cat" : 1
-   *    },
-   *    "대구" : {
-   *        "dog" : 1,
-   *        "cat" : 1,
-   *    },
-   *    "부산" : {
-   *        "cat" : 1,
-   *    }
-   * }
-   */
-
-  /**
-   * @typedef {Object.<string,Object.<string,number>} PetsOfCities
-   */
-
-  function SolveB(){
-    /**
-     * @type {PetsOfCities}
-     */
-    const result{}
-
-    for(const person of people){
-        const {city,pet: petOrPets} = person
-
-        if(petOrPets){
-          const PetsOfCity = result[city] || {}
-            if(typeof petOrPets === 'string'){
-
-                const pet = petOrPets
-
-                result[city][pet] = result[city][pet] + 1
-            }
-            else if(typeof petOrPets === 'undefine'){
-
-            }
-
-            result[city] = PetsOfCity
-        } 
-    }
-    return result    
+  return cities;
 }
-console.log('solveB',SolveB())
+function solveAMordern() {
+  const allcities = people
+    .filter(({ age }) => age < 30)
+    .map(({ city }) => city);
+  const set = new Set(allcities);
+  return Array.from(set);
+}
+
+// console.log("solveA", solveA());
+// console.log("solveAMordern", solveAMordern());
+
+/** B. 각 도시별로 개와 고양이를 키우는 사람들의 수*/
+
+/**
+ * {
+ *    "서울"  : {
+ *        "dog" : 2,
+ *        "cat" : 1
+ *    },
+ *    "대구" : {
+ *        "dog" : 1,
+ *        "cat" : 1,
+ *    },
+ *    "부산" : {
+ *        "cat" : 1,
+ *    }
+ * }
+ */
+
+/**
+ * @typedef {Object.<string,Object.<string,number>} PetsOfCities
+ */
+
+function SolveB() {
+  /**
+   * @type {PetsOfCities}
+   */
+
+  const result = {};
+
+  for (const person of people) {
+    const { city, pet: petOrPets } = person; //?
+
+    if (petOrPets) {
+      const PetsOfCity = result[city] || {};
+
+      if (typeof petOrPets === "string") {
+        const pet = petOrPets;
+
+        const originalNumPetsofCity = PetsOfCity[pet] || 0;
+        PetsOfCity[pet] = originalNumPetsofCity + 1;
+      } else {
+        for (const pet of petOrPets) {
+          const originalNumPetsofCity = PetsOfCity[pet] || 0;
+          PetsOfCity[pet] = originalNumPetsofCity + 1;
+        }
+      }
+
+      result[city] = PetsOfCity;
+    }
+  }
+  return result;
+}
+console.log("solveB", SolveB());
